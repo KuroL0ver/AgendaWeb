@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using AgendaWeb.Data.Entities;
+using Microsoft.Data.SqlClient;
 
 namespace AgendaWeb.Data.Commands
 {
@@ -11,7 +12,7 @@ namespace AgendaWeb.Data.Commands
             _sqlServer = sqlServer;
         }
 
-        public int InsertarContacto(string nombre, string telefono, string email)
+        public int InsertarContacto(Contactos contacto)
         {
             string query = "INSERT INTO Contactos " +
                 "(Nombre, Telefono, Email) " +
@@ -19,9 +20,9 @@ namespace AgendaWeb.Data.Commands
                 "(@Nombre, @Telefono, @Email)";
             SqlParameter[] parameters = new SqlParameter[]
             {
-                new SqlParameter("@Nombre", nombre),
-                new SqlParameter("@Telefono", telefono),
-                new SqlParameter("@Email", email)
+                new SqlParameter("@Nombre", contacto.Nombre),
+                new SqlParameter("@Telefono",contacto.Telefono),
+                new SqlParameter("@Email", contacto.Email)
             };
             return _sqlServer.NonQuery(query, parameters);
         }
@@ -36,7 +37,7 @@ namespace AgendaWeb.Data.Commands
             return _sqlServer.NonQuery(query, parameters);
         }
 
-        public int ActualizarContacto(int id, string nombre, string telefono, string email)
+        public int ActualizarContacto(int id,Contactos contacto)
         {
             string query = "UPDATE Contactos " +
                 "SET " +
@@ -46,12 +47,17 @@ namespace AgendaWeb.Data.Commands
                 "WHERE Id = @Id";
             SqlParameter[] parameters = new SqlParameter[]
             {
-                new SqlParameter("@Id", id),
-                new SqlParameter("@Nombre", nombre),
-                new SqlParameter("@Telefono", telefono),
-                new SqlParameter("@Email", email)
+                new SqlParameter("@Id",id),
+                new SqlParameter("@Nombre", contacto.Nombre),
+                new SqlParameter("@Telefono", contacto.Telefono),
+                new SqlParameter("@Email", contacto.Email)
             };
             return _sqlServer.NonQuery(query, parameters);
+        }
+
+        internal void InsertarContacto()
+        {
+            throw new NotImplementedException();
         }
     }
 }
