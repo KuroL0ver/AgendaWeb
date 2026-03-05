@@ -1,0 +1,57 @@
+﻿@page "/contactos/nuevo"
+
+
+<h3 class="mb-4">Nuevo Contacto</h3>
+
+<EditForm Model="Contacto" OnValidSubmit="GuardarContacto">
+    <DataAnnotationsValidator />
+   @*  <ValidationSummary /> *@
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <!-- Nombre -->
+            <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <InputText class="form-control"
+                           @bind-Value="Contacto.Nombre" />
+                <ValidationMessage For="@(() => Contacto.Nombre)" />
+            </div>
+
+            <!-- Teléfono -->
+            <div class="mb-3">
+                <label class="form-label">Teléfono</label>
+                <InputText class="form-control"
+                           @bind-Value="Contacto.Telefono" />
+                <ValidationMessage For="@(() => Contacto.Telefono)" />
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <InputText type="email"
+                           class="form-control"
+                           @bind-Value="Contacto.Email" />
+                <ValidationMessage For="@(() => Contacto.Email)" />
+            </div>
+
+        </div>
+
+        <div class="card-footer text-end">
+            <button type="submit" class="btn btn-success">
+                Guardar
+            </button>
+            <button type="button" class="btn btn-warning ms-2"
+                    @onclick="Cancelar">
+                Cancelar
+            </button>
+        </div>
+    </div>
+</EditForm>
+
+@if (MensajeExito)
+{
+    <div class="alert alert-success mt-3">
+        Contacto guardado correctamente.
+    </div>
+}

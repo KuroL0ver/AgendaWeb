@@ -1,0 +1,28 @@
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
+using System.ComponentModel.DataAnnotations;
+
+public class ContactoNuevoBase : ComponentBase
+{
+    protected ContactoNuevoDTO Contacto { get; set; } = new ContactoNuevoDTO();
+
+    protected string? Mensaje;
+
+    protected void HandleValidSubmit()
+    {
+        // Aquí puedes llamar a tu servicio para guardar el contacto en la base de datos
+        // Ejemplo: await ContactoService.GuardarContactoAsync(Contacto);
+
+        Mensaje = $"Contacto '{Contacto.Nombre}' registrado correctamente.";
+
+        // Limpiar formulario si deseas
+        Contacto = new ContactoNuevoDTO();
+    }
+
+    protected void Cancelar()
+    {
+        // Limpiar formulario
+        Contacto = new ContactoNuevoDTO();
+        Mensaje = null;
+    }
+}
