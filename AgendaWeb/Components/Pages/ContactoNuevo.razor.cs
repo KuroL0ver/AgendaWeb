@@ -1,4 +1,5 @@
 ﻿using AgendaWeb.Data.DTOS.Contactos;
+using AgendaWeb.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace AgendaWeb.Components.Pages
@@ -9,19 +10,12 @@ namespace AgendaWeb.Components.Pages
 
         protected bool MensajeExito { get; set; } = false;
 
-        [Inject]
-        protected NavigationManager Navigation { get; set; }
+        [Inject]  protected NavigationManager Navigation { get; set; }
+        [Inject] protected ContactosServices ContactosServices { get; set; }
 
         protected async Task GuardarContacto()
         {
-            // Aquí iría la llamada a tu servicio o repositorio
-            // Ejemplo:
-            // await _contactoService.CrearAsync(Contacto);
-
-            MensajeExito = true;
-
-            // Opcional: limpiar formulario
-            Contacto = new ContactoNuevoDTO();
+            ContactosServices.Insertar(Contacto);
 
             await Task.CompletedTask;
         }
