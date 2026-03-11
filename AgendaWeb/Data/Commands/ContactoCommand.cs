@@ -12,16 +12,16 @@ namespace AgendaWeb.Data.Commands
             _sqlServer = sqlServer;
         }
 
-        public int InsertarContacto(Contactos contacto)
+        public int InsertarContacto(Contacto contacto)
         {
-            string query = "INSERT INTO Contactos " +
-                "(Nombre, Telefono, Email) " +
+            string query = "INSERT INTO Contactos" +
+                " (Nombre, Telefono, Email) " +
                 "VALUES " +
                 "(@Nombre, @Telefono, @Email)";
             SqlParameter[] parameters = new SqlParameter[]
             {
                 new SqlParameter("@Nombre", contacto.Nombre),
-                new SqlParameter("@Telefono",contacto.Telefono),
+                new SqlParameter("@Telefono", contacto.Telefono),
                 new SqlParameter("@Email", contacto.Email)
             };
             return _sqlServer.NonQuery(query, parameters);
@@ -37,27 +37,22 @@ namespace AgendaWeb.Data.Commands
             return _sqlServer.NonQuery(query, parameters);
         }
 
-        public int ActualizarContacto(int id,Contactos contacto)
+        public int ActualizarContacto(int id, Contacto contacto)
         {
             string query = "UPDATE Contactos " +
-                "SET " +
-                "Nombre = @Nombre, " +
+                "SET" +
+                " Nombre = @Nombre, " +
                 "Telefono = @Telefono, " +
                 "Email = @Email " +
                 "WHERE Id = @Id";
             SqlParameter[] parameters = new SqlParameter[]
             {
-                new SqlParameter("@Id",id),
+                new SqlParameter("@Id", id),
                 new SqlParameter("@Nombre", contacto.Nombre),
                 new SqlParameter("@Telefono", contacto.Telefono),
                 new SqlParameter("@Email", contacto.Email)
             };
             return _sqlServer.NonQuery(query, parameters);
-        }
-
-        internal void InsertarContacto()
-        {
-            throw new NotImplementedException();
         }
     }
 }

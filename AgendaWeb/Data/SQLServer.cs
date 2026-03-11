@@ -17,7 +17,6 @@ namespace AgendaWeb.Data
             {
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.CommandType = System.Data.CommandType.Text;
                     if (parameters != null)
                     {
                         command.Parameters.AddRange(parameters);
@@ -28,13 +27,12 @@ namespace AgendaWeb.Data
             }
         }
 
-        public T? Scalar <T>(string query, SqlParameter[] ? parameters = null)
+        public T? Scalar<T>(string query, SqlParameter[]? parameters = null)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.CommandType = System.Data.CommandType.Text;
                     if (parameters != null)
                     {
                         command.Parameters.AddRange(parameters);
@@ -42,9 +40,7 @@ namespace AgendaWeb.Data
                     connection.Open();
                     object respuesta = command.ExecuteScalar();
 
-                  return respuesta is T  value ? value: default;
-
-
+                    return respuesta is T value ? value: default;
                 }
             }
         }

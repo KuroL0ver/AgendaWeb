@@ -5,7 +5,7 @@
 
 <EditForm Model="Contacto" OnValidSubmit="GuardarContacto">
     <DataAnnotationsValidator />
-   @*  <ValidationSummary /> *@
+    @* <ValidationSummary /> *@
 
     <div class="card shadow-sm">
         <div class="card-body">
@@ -41,7 +41,7 @@
             <button type="submit" class="btn btn-success">
                 Guardar
             </button>
-            <button type="button" class="btn btn-warning ms-2"
+            <button type="button" class="btn btn-danger ms-2"
                     @onclick="Cancelar">
                 Cancelar
             </button>

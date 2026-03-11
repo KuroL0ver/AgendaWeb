@@ -6,16 +6,16 @@ namespace AgendaWeb.Components.Pages
 {
     public partial class ContactoNuevo
     {
-        protected ContactoNuevoDTO Contacto { get; set; } = new();
+        protected ContactoNuevoDto Contacto { get; set; } = new();
 
         protected bool MensajeExito { get; set; } = false;
 
-        [Inject]  protected NavigationManager Navigation { get; set; }
-        [Inject] protected ContactosServices ContactosServices { get; set; }
+        [Inject] protected NavigationManager Navigation { get; set; }
+        [Inject] protected ContactoServices ContactoServices { get; set; }
 
         protected async Task GuardarContacto()
         {
-            ContactosServices.Insertar(Contacto);
+            ContactoServices.Insertar(Contacto);
 
             await Task.CompletedTask;
         }
@@ -25,4 +25,3 @@ namespace AgendaWeb.Components.Pages
         }
     }
 }
-

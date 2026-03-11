@@ -7,9 +7,9 @@ using System.Data;
 namespace AgendaWeb.Components.Pages
 {
     public partial class Counter
-    { 
-[Inject] private ContactosServices ContactosServices { get; set; } = default;
-
+    {
+        //Solo en componentes Razor, se puede usar [Inject] para inyectar servicios, en este caso el ContactoServices
+        [Inject] private ContactoServices ContactoServices { get; set; } = default!;
         private int currentCount = 0;
 
         //private void IncrementCount()
@@ -20,29 +20,28 @@ namespace AgendaWeb.Components.Pages
 
         //    SqlConnection connection = new SqlConnection(connectionString);
 
-        //    string query = "INSERT into Contactos (Nombre, Telefono, Email) values ('Desde VS', '6623789065', 'esme2@gmail.com')"; 
+        //    String query = "INSERT INTO Contactos(Nombre, Telefono, Email) VALUES('Desde VS', '6621456823', 'Naura@gmail.com')";
 
         //    SqlCommand command = new SqlCommand(query, connection);
 
         //    command.CommandType = CommandType.Text;
 
-
         //    connection.Open();
+
         //    command.ExecuteNonQuery();
 
-        //    connection.Close();
         //    connection.Dispose();
         //}
-
         private void IncrementCount()
         {
-            ContactoNuevoDTO contactoNuevoDTO = new ContactoNuevoDTO { 
+            ContactoNuevoDto contactoNuevoDto = new ContactoNuevoDto
+            {
+                Nombre = "Utilizando services",
+                Telefono = "6621456823",
+                Email = "cosoloco13@gmail.com"
             };
-            contactoNuevoDTO.Nombre = "Desde VS";
-            contactoNuevoDTO.Telefono = "6623789065";
-            contactoNuevoDTO.Email = "lolita41@gmail.com";
 
-            ContactosServices.Insertar(contactoNuevoDTO);
+            ContactoServices.Insertar(contactoNuevoDto);
         }
     }
-} 
+}

@@ -14,13 +14,16 @@ namespace AgendaWeb
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
+            //Builder es un patron de diseño
+            //connectionString va después del CreateBuilder y antes del build, porque es parte de la configuración que se va a usar en la aplicación, y se obtiene de la configuración del builder.
 
-            var connectionString = builder.Configuration
-                    .GetConnectionString("DefaultConnection");
-            //InyecciÃ³n de dependencias
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+            //Inyección de dependencias
             builder.Services.AddScoped<SQLServer>(_ => new SQLServer(connectionString));
             builder.Services.AddScoped<ContactoCommand>();
-            builder.Services.AddScoped<ContactosServices>();
+            builder.Services.AddScoped<ContactoServices>();
+
 
             var app = builder.Build();
 
