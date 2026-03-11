@@ -1,4 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
+using System;
+using System.Collections.Generic;
 
 namespace AgendaWeb.Data
 {
@@ -9,6 +11,31 @@ namespace AgendaWeb.Data
         public SQLServer(string connectionString)
         {
             _connectionString = connectionString;
+        }
+
+        public List<T> Query<T>(string query, Func<SqlDataReader, T> map, SqlParameter[]? parameters = null)
+        {
+            var results = new List<T>();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    if (parameters != null)
+                    {
+                        command.Parameters.AddRange(parameters);
+                    }
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            results.Add(map(reader));
+                        }
+                    }
+                }
+            }
+
+            return results;
         }
 
         public int NonQuery(string query, SqlParameter[] parameters = null)

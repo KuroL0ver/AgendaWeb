@@ -12,6 +12,28 @@ namespace AgendaWeb.Data.Commands
             _sqlServer = sqlServer;
         }
 
+        public List<Contacto> ObtenerContactos()
+        {
+            string query = "SELECT Id, Nombre, Telefono, Email FROM Contactos ORDER BY Nombre ASC";
+            string[] columns = new[] { "Id", "Nombre", "Telefono", "Email" };
+
+            return _sqlServer.Query<Contacto>(query, reader  =>
+            {
+                int ordId = reader.GetOrdinal("Id");
+                int ordNombre = reader.GetOrdinal("Nombre");
+                int ordTelefono = reader.GetOrdinal("Telefono");
+                int ordEmail = reader.GetOrdinal("Email");
+
+                return new Contacto
+                {
+                    Id = reader.GetInt32(ordId),
+                    Nombre = reader.IsDBNull(ordNombre) ? string.Empty : reader.GetString(ordNombre),
+                    Telefono = reader.IsDBNull(ordTelefono) ? string.Empty : reader.GetString(ordTelefono),
+                    Email = reader.IsDBNull(ordEmail) ? string.Empty : reader.GetString(ordEmail)
+                };
+            });
+        }
+
         public int InsertarContacto(Contacto contacto)
         {
             string query = "INSERT INTO Contactos" +
